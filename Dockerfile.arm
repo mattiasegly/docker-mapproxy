@@ -1,17 +1,24 @@
 FROM balenalib/rpi-raspbian:buster
 RUN [ "cross-build-start" ]
 
+# installing Python2 because of an error with Python3 and Pillow: "PIL is not available"
 RUN apt-get update && apt-get install -y --no-install-recommends \
-    python3 \
-    python3-pip \
+    python \
+    python-pip \
     libproj13 \
     ca-certificates \
+# required for building Pillow
+    build-essential \
+    python-dev \
+    zlib1g-dev \
+    libjpeg-dev \
+    libfreetype6-dev \
 && rm -rf /var/lib/apt/lists/*
 
 ENV CURL_CA_BUNDLE=/etc/ssl/certs/ca-certificates.crt
 
-RUN pip3 install wheel setuptools && \
-    pip3 install Pillow PyYAML MapProxy && \
+RUN pip install wheel setuptools && \
+    pip install Pillow PyYAML MapProxy && \
     mkdir -p /mapproxy_conf /mapproxy_cache /mapproxy_locks/locks /mapproxy_locks/tile_locks
 
 COPY entrypoint.sh /usr/local/bin
