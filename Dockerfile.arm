@@ -11,15 +11,16 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 ENV CURL_CA_BUNDLE=/etc/ssl/certs/ca-certificates.crt
 
 RUN pip3 install wheel setuptools && \
-    pip3 install Pillow PyYAML MapProxy
+    pip3 install Pillow PyYAML MapProxy && \
+    mkdir -p /mapproxy_conf /mapproxy_cache /mapproxy_locks/locks /mapproxy_locks/tile_locks
 
 COPY entrypoint.sh /usr/local/bin
 RUN chmod +x /usr/local/bin/entrypoint.sh
 
 RUN [ "cross-build-end" ]
 
-#VOLUME
+VOLUME /mapproxy_conf /mapproxy_cache
 EXPOSE 80
 
 ENTRYPOINT ["entrypoint.sh"]
-CMD ["mapproxy-util", "serve-develop", "/mymapproxy/mapproxy.yaml", "--bind", "0.0.0.0:80"]
+CMD ["mapproxy-util", "serve-develop", "/mapproxy_conf/custom.yaml", "--bind", "0.0.0.0:80"]
