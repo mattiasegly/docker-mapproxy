@@ -13,11 +13,11 @@ layers:
 
 caches:
   osm_cache:
-    grids: [webmercator]
+    grids: [GLOBAL_WEBMERCATOR]
     sources: [osm_source]
 
   lma_cache:
-    grids: [webmercator]
+    grids: [GLOBAL_WEBMERCATOR]
     sources: [lma_source]
 
 sources:
@@ -29,24 +29,20 @@ sources:
       ssl_ca_certs: /etc/ssl/certs/ca-certificates.crt
     coverage:
       bbox: [4, 50, 31, 71]
-      srs: 'EPSG:4326'
+      srs: "EPSG:4326"
 
   lma_source:
     type: tile
     grid: GLOBAL_WEBMERCATOR
-    url: https://api.lantmateriet.se/open/topowebb-ccby/v1/wmts/token/YOURAPIKEYHERE/1.0.0/topowebb/default/3857/%(z)s/%(y)s/%(x)s.png
+    url: https://api.lantmateriet.se/open/topowebb-ccby/v1/wmts/token/YOURAPITOKEN/1.0.0/topowebb/default/3857/%(z)s/%(y)s/%(x)s.png
     http:
       ssl_ca_certs: /etc/ssl/certs/ca-certificates.crt
     coverage:
       bbox: [4, 50, 31, 71]
-      srs: 'EPSG:4326'
-
-grids:
-  webmercator:
-    base: GLOBAL_WEBMERCATOR
+      srs: "EPSG:4326"
 
 globals:
   cache:
     base_dir: "/mapproxy_cache"
     lock_dir: "/mapproxy_locks/locks"
-    tile_lock_dir: "/mapproxy_locks/tile_locks" 
+    tile_lock_dir: "/mapproxy_locks/tile_locks"
