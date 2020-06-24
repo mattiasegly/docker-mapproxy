@@ -17,8 +17,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 && update-alternatives --install /usr/bin/pip pip /usr/bin/pip3 1
 
 RUN pip install Pillow PyYAML MapProxy waitress && \
-    mkdir -p /mapproxy_conf /mapproxy_cache /mapproxy_locks/locks /mapproxy_locks/tile_locks && \
-    mapproxy-util --version
+    mkdir -p /mapproxy_conf /mapproxy_cache /mapproxy_locks/locks /mapproxy_locks/tile_locks
 
 COPY entrypoint.sh /usr/local/bin
 RUN chmod +x /usr/local/bin/entrypoint.sh
