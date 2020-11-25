@@ -8,7 +8,6 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     python3-pil \
     python3-yaml \
     libproj13 \
-    ca-certificates \
 && rm -rf /var/lib/apt/lists/* \
 && update-alternatives --install /usr/bin/python python /usr/bin/python3 1 \
 && update-alternatives --install /usr/bin/pip pip /usr/bin/pip3 1
